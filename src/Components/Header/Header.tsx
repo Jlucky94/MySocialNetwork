@@ -7,7 +7,7 @@ import {getAuthUserDataTC} from "../../Redux/profile-reducer";
 
 const Header = () => {
     const isAuth = useAppSelector<boolean>(state => state.auth.isAuth)
-    const userName = useAppSelector<string>(state => state.auth.data.login)
+    const domainUserName = useAppSelector<string>(state => state.auth.data.login)
 
     const dispatch = useAppDispatch()
     useEffect(() => {
@@ -21,7 +21,7 @@ const Header = () => {
             {<div className={classes.loginBlock}>
                 {isAuth ?
                     <div>
-                        {userName + ' - '}
+                        {domainUserName + ' - '}
                         <button onClick={() => dispatch(logoutTC())}>
                             Log out
                         </button>

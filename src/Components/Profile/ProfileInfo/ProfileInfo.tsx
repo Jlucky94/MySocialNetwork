@@ -1,14 +1,24 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from './ProfileInfo.module.css'
-import {ProfilePropsType} from "../../../Redux/profile-reducer";
+import {ProfilePropsType, updatePhotoTC} from "../../../Redux/profile-reducer";
 import ProfileStatus from "./ProfileStatus";
+import userPhoto from '../../../images/user.png'
+import {useAppDispatch, useAppSelector} from "../../../Redux/redux-store";
 
 
 const ProfileInfo = (props: { profile: ProfilePropsType, status: string }) => {
+    const dispatch = useAppDispatch()
+    const domainUserName = useAppSelector<string>(state => state.auth.data.login)
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.files) {
+            dispatch(updatePhotoTC(e.currentTarget.files[0]))
+        }
+    }
     return (
         <div className={classes.descriptionBlock}>
             <h2>{props.profile.fullName}</h2>
-            <img src={props.profile.photos.small} alt='avatar'/>
+            <img className={classes.mainPhoto} src={props.profile.photos.small || userPhoto} alt='avatar'/>
+            {props.profile.fullName === domainUserName && <input type="file" onChange={onMainPhotoSelected}/>}
             <ProfileStatus status={props.status}/>
             <div className={classes.about}>
                 {props.profile.aboutMe}
