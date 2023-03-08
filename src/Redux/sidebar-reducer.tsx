@@ -26,7 +26,7 @@ const initialState: InitialStatePropsType = {
     ]
 }
 
-const sideBarReducer = (state: InitialStatePropsType = initialState, action: any): InitialStatePropsType => {
+const sideBarReducer = (state: InitialStatePropsType = initialState, action: {}): InitialStatePropsType => {
     return state
 }
 export default sideBarReducer;

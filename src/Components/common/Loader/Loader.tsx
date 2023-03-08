@@ -3,12 +3,12 @@ import classes from './Loader.module.css'
 import preloader from "./loader.svg";
 
 
-const Loader = (props:{isFetching: boolean}) => {
+const Loader = () => {
 
     return (
         <div className={classes.loader}>
             <div>
-                {props.isFetching ? <img alt="preloading" src={preloader}/> : null}
+                <img alt="preloading" src={preloader}/>
             </div>
         </div>
     )

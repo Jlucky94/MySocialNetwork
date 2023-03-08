@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 
 //Функция которая создает и отображает список линков диалогов/друзей
-const DialogueItem = (props: { name: string, id: number }) => {
+const DialogueItem = (props: { name: string, id: string }) => {
     return (<div className={classes.dialogue}>
             <NavLink
                 to={"/dialogues/" + props.id}

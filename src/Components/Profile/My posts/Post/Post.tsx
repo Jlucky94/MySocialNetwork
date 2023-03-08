@@ -4,7 +4,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import {PostsPropsType} from "../../../../Redux/profile-reducer";
 
 
-
 const Post: FC<PostsPropsType> = (props: PropsWithChildren<PostsPropsType>) => {
     return (
         <div className={classes.item}>
@@ -14,8 +13,8 @@ const Post: FC<PostsPropsType> = (props: PropsWithChildren<PostsPropsType>) => {
             <div>
                 <span>
                     <FavoriteIcon
-                    color={"primary"}
-                    fontSize={"small"}
+                        color={"primary"}
+                        fontSize={"small"}
                     />
                     {props.likeCounts}
                 </span>

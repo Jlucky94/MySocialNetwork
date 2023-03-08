@@ -1,3 +1,18 @@
 .descriptionBlock {
 
+
+}
+
+.about {
+
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+}
+
+.job {
+    display: flex;
+    flex-direction: column;
 }

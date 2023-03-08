@@ -16,8 +16,9 @@
     text-decoration: none;
 
 }
-.dialoguesItems a.active{
-    color:gold;
+
+.dialoguesItems a.active {
+    color: gold;
     font-weight: bold;
 }
 

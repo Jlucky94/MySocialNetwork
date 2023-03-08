@@ -1,24 +1,41 @@
 import React, {useEffect} from 'react';
 import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./My posts/MyPostsContainer";
-import axios from "axios";
+import {useParams} from "react-router-dom";
+import {getProfileTC, getStatusTC, InitialStatePropsType} from "../../Redux/profile-reducer";
+import {useAppDispatch, useAppSelector} from "../../Redux/redux-store";
+import MyPosts from "./My posts/MyPosts";
+import withAuthRedirect from "../../HOCs/withAuthRedirect";
+import {compose} from "redux";
 
 
 const Profile = () => {
-    // useEffect(() => {
-    //     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
-    //         props.setUserProfile(response.data)
-    //     })
-    // })
+    const params = useParams()
+    let userId = Number(params.userId)
+    const profile = useAppSelector<InitialStatePropsType>(state => state.profilePage)
+    const domainUserId = useAppSelector<number>(state => state.auth.data.userId)
+
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        if (userId) {
+            dispatch(getProfileTC(userId))
+            dispatch(getStatusTC(userId))
+        } else {
+            dispatch(getProfileTC(domainUserId))
+            dispatch(getStatusTC(domainUserId))
+        }
+    }, [userId])
     return (
         <div>
             <div className={classes.content}>
-                <ProfileInfo/>
-                <MyPostsContainer/>
+                <ProfileInfo
+                    profile={profile.profile}
+                    status={profile.status}
+                />
+                <MyPosts/>
             </div>
         </div>
     )
 };
 
-export default Profile;
+export default compose(withAuthRedirect)(Profile);
