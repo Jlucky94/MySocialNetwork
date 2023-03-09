@@ -4,7 +4,7 @@ import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {useAppDispatch, useAppSelector} from "../../../Redux/redux-store";
 import {addPost, InitialStatePropsType} from "../../../Redux/profile-reducer";
-import {Field, reduxForm} from "redux-form";
+import {Field, reduxForm, clearFields} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validator";
 import Element from "../../common/FormControlls/FormControls";
 

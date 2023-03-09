@@ -9,15 +9,22 @@ export const instance = axios.create({
 })
 
 export const loginAPI = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: boolean) => {
+    login: (email: string, password: string, rememberMe: boolean, captcha: string | null = null) => {
         return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
             return response.data
         })
     },
-    logout:() => {
+    logout: () => {
         return instance.delete(`auth/login`).then(response => {
             return response.data
         })
     },
 
+}
+export const securityAPI = {
+    getCaptcha: () => {
+        return instance.get(`security/get-captcha-url`).then(response => {
+            return response.data.url
+        })
+    }
 }

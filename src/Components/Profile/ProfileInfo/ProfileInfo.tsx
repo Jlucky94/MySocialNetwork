@@ -17,6 +17,7 @@ const ProfileInfo = (props: { profile: ProfilePropsType, status: string }) => {
         }
     }
     const onSubmit = (formData: any) => {
+        console.log(formData)
         dispatch(updateProfileTC(formData)).then(
             () => {
                 setEditMode(false)

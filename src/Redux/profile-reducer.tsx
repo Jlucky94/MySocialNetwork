@@ -6,46 +6,46 @@ import {AppStateType, ThunkAppDispatchType} from "./redux-store";
 import {stopSubmit} from "redux-form";
 
 export const ADD_POST = 'ADD-POST';
-export const NEW_POST_MESSAGE_UPDATE = 'NEW-POST-MESSAGE-UPDATE';
+// export const NEW_POST_MESSAGE_UPDATE = 'NEW-POST-MESSAGE-UPDATE';
 export const SET_USER_PROFILE_PAGE = 'SET-USER-PROFILE-PAGE'
 export const SET_USER_STATUS = 'GET-USER-STATUS'
 export const SAVE_PHOTO = 'SAVE-PHOTO'
 
 export const addPost = (postMessage: string) => ({type: ADD_POST, postMessage} as const)
-export const newPostMessageUpdate = (message: string) => ({
-        type: NEW_POST_MESSAGE_UPDATE,
-        message
-    } as const
-)
+// export const newPostMessageUpdate = (message: string) => ({
+//         type: NEW_POST_MESSAGE_UPDATE,
+//         message
+//     } as const
+// )
 export const setProfilePage = (profile: ProfilePropsType) => ({type: SET_USER_PROFILE_PAGE, profile} as const)
 export const setStatus = (status: string) => ({type: SET_USER_STATUS, status} as const)
 export const savePhotoSuccess = (photos: any) => ({type: SAVE_PHOTO, photos} as const)
 
-
+export type ContactsPropsType = {
+    facebook: string
+    github: string
+    instagram: string
+    mainLink: string
+    twitter: string
+    vk: string
+    website: string
+    youtube: string
+}
 export type PostsPropsType = {
     id: number
     message: string
     likeCounts: number
 }
 export type ProfilePropsType = {
-    aboutMe: string,
-    contacts: {
-        facebook: string,
-        github: string,
-        instagram: string,
-        mainLink: string,
-        twitter: string,
-        vk: string,
-        website: string,
-        youtube: string
-    }
-    fullName: string,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
+    aboutMe: string
+    contacts: ContactsPropsType
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
     photos: {
         small: string,
         large: string
-    },
+    }
     userId: number
 }
 // type ProfilePagePropsType =
@@ -67,7 +67,6 @@ const initialState = {
         {id: 1, message: "Hi, whats up?", likeCounts: 12},
         {id: 2, message: "Its my first post", likeCounts: 33}
     ],
-    newPostMessage: '',
     status: '',
     profile: {
         aboutMe: '',
@@ -100,7 +99,6 @@ const profileReducer = (state: InitialStatePropsType = initialState, action: Act
         case ADD_POST: {
             return {
                 ...state,
-                newPostMessage: '',
                 posts: [...state.posts, {id: v1(), message: action.postMessage, likeCounts: 0}]
             }
         }
