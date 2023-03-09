@@ -2,6 +2,8 @@ import {Dispatch} from "redux";
 import {profileAPI} from "../api/profileAPI";
 import {setAuthUserData} from "./auth-reducer";
 import {v1} from "uuid";
+import {AppStateType, ThunkAppDispatchType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export const ADD_POST = 'ADD-POST';
 export const NEW_POST_MESSAGE_UPDATE = 'NEW-POST-MESSAGE-UPDATE';
@@ -42,9 +44,9 @@ export type ProfilePropsType = {
     lookingForAJobDescription: string,
     photos: {
         small: string,
-        large: string,
-        userId: number
-    }
+        large: string
+    },
+    userId: number
 }
 // type ProfilePagePropsType =
 //     {
@@ -84,9 +86,9 @@ const initialState = {
         lookingForAJobDescription: '',
         photos: {
             small: '',
-            large: '',
-            userId: 0
-        }
+            large: ''
+        },
+        userId: 0
     }
 }
 type ActionType = AddPostAT | SetUserProfilePageAT | SetStatusAT | SavePhotoAT
@@ -157,5 +159,16 @@ export const updatePhotoTC = (photo: File) => async (dispatch: Dispatch) => {
     let response = await profileAPI.savePhoto(photo)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+export const updateProfileTC = (profile: ProfilePropsType) => async (dispatch: ThunkAppDispatchType, getState: () => AppStateType) => {
+    const userId = getState().auth.data.userId
+    let response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(getProfileTC(userId))
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        dispatch(stopSubmit("profile-update", {_error: message}))
+        return Promise.reject(response.data.messages[0] )
     }
 }

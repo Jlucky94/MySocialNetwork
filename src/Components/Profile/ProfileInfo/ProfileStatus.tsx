@@ -15,7 +15,7 @@ const ProfileStatus = (props: { status: string }) => {
                 <div>
                     <span
                         onDoubleClick={() => setEditMode(true)}
-                    >{status ? status : "status"}</span>
+                    >My status : {status ? status : "status"}</span>
                 </div>}
             {editMode &&
                 <div>
